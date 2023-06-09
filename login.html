@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RANSpeed MXShop | Login</title>
+    
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    
+    <div class="login-form-container">
+    
+        <form class="login-form">
+            
+            <h3>Login</h3>
+
+            <input type="text" name="username" class="box username" placeholder="Email or Username">
+            <input type="password" name="pass" class="box pass" placeholder="Password">
+            <input type="submit" value="Login" class="btn">
+
+            <p class="error-message"></p>
+
+            <p>Belum punya akun? <a href="register.html">Daftar Sekarang!</a></p>
+        </form>
+    
+    </div>
+
+<script>
+    const loginForm = document.querySelector('.login-form');
+    const usernameElement = document.querySelector('.username');
+    const passElement = document.querySelector('.pass');
+    
+    loginForm.addEventListener('submit', (e) => {
+
+        e.preventDefault();
+
+        if (localStorage.user) {
+            const username = usernameElement.value;
+            const pass = passElement.value;
+
+            const user = JSON.parse(localStorage.user);
+
+            const isRegistered = user.some(item => item.username === username && item.pass === pass);
+            
+            // jika sudah registrasi
+            if (isRegistered) { 
+                sessionStorage.user = username;
+                window.location.replace("./index.html");
+            }
+
+            // jika belum
+            else {
+                document.querySelector('.error-message').innerHTML = 'Username tidak ditemukan!';
+            }
+            
+            usernameElement.value = '';
+            passElement.value = '';
+        }
+    });
+</script>
+
+<!-- Javascript -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="./js/script.js"></script>
+
+</body>
+</html>

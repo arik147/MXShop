@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RANSpeed MXShop | Register</title>
+    
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    
+    <div class="login-form-container">
+    
+        <form class="register-form">
+            
+            <h3>Daftar</h3>
+
+            <input type="text" name="username" class="box username" placeholder="Masukkan Username" required>
+            <input type="password" name="pass" class="box pass" placeholder="Masukkan Password" required>
+            <input type="submit" value="Daftar" class="btn">
+
+            <p class="error-message"></p>
+
+            <p>Sudah punya akun? <a href="login.html">Masuk Sekarang!</a></p>
+
+        </form>
+    
+    </div>
+
+<script> 
+    const registerForm = document.querySelector('.register-form');
+    if (!localStorage.user) {
+        localStorage.user = JSON.stringify([]);
+    }
+    registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const usernameElement = document.querySelector('.username');
+        const passElement = document.querySelector('.pass');
+        
+        const username = usernameElement.value;
+        const pass = passElement.value;
+        
+        const user = JSON.parse(localStorage.user);
+        const isRegistered = user.some(item => item.username === username);
+        
+        // jika belum registrasi
+        if (!isRegistered) { 
+            user.push({username, pass});
+            localStorage.user = JSON.stringify(user);
+            window.location.replace("./login.html");
+        } 
+        
+        // jika sudah pernah registrasi
+        else {
+            document.querySelector('.error-message').innerHTML = 'Akun sudah terdaftar!';
+        }
+    
+        usernameElement.value = '';
+        passElement.value = '';
+    })
+</script>
+
+<!-- Javascript -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="./js/script.js"></script>
+
+</body>
+</html>
